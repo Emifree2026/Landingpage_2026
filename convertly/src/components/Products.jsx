@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, Settings, Zap, Shield, Waves, Pause, Play } from 'lucide-react';
+import { ChevronRight, Settings, Zap, Shield, Volume2, Pause, Play, Cpu, Wrench, Wifi, Box } from 'lucide-react';
 import fotom1 from '../assets/products/fotom1.webp';
 import fotom5 from '../assets/products/fotom5.webp';
 import fotom6 from '../assets/products/fotom6.webp';
+import fotoe1 from '../assets/products/fotoe1.webp';
+import fotoe2 from '../assets/products/fotoe2.webp';
+import fotoe3 from '../assets/products/fotoe3.webp';
 
 const Products = () => {
   const [selectedProduct, setSelectedProduct] = useState('mechanical');
@@ -22,7 +25,7 @@ const Products = () => {
         { icon: Settings, title: 'Heavy-Duty Construction', desc: 'Industrial-grade sheet metal housing with powder-coated finish for durability in harsh workshop environments' },
         { icon: Zap, title: 'High Airflow Capacity', desc: 'Up to 2,750 m³/hr airflow to handle multiple machining operations simultaneously' },
         { icon: Shield, title: 'HEPA Filter Option', desc: 'Optional HEPA post-filter achieves 99.95% particle removal for cleanroom applications' },
-        { icon: Waves, title: 'Low Vibration', desc: 'Optimized low vibration design' }
+        { icon: Volume2, title: 'Low Noise Operation', desc: 'Optimized fan design keeps sound levels below 65 dB for operator comfort' }
       ],
       specs: [
         { label: 'Airflow', value: '1,500 - 2,750', unit: 'm³/hr' },
@@ -32,19 +35,31 @@ const Products = () => {
         { label: 'Weight', value: '85 - 120', unit: 'kg' },
         { label: 'Dimensions', value: '600 x 600 x 1,200', unit: 'mm' }
       ],
-      applications: ['CNC Machining', 'Grinding', 'Turning', 'Milling'],
+      applications: ['CNC Machining', 'Grinding', 'Turning', 'Milling', 'Spark Eroding'],
       cta: 'Request Mechanical Filtration Quote'
     },
     electrostatic: {
       name: 'Electrostatic Filtration',
-      tagline: 'Coming Soon',
-      shortDesc: 'Advanced electrostatic precipitation technology for ultra-fine particulate removal.',
-      description: 'Our upcoming electrostatic filtration systems will use charged plates to capture microscopic particles. Ideal for applications requiring the highest air purity standards.',
-      images: [],
-      features: [],
-      specs: [],
-      applications: ['Cleanrooms', 'Pharmaceutical', 'Food Processing'],
-      cta: 'Get Notified When Available'
+      tagline: 'Advanced Corona Discharge Technology',
+      shortDesc: 'Superior separation for fine particles, smoke, sub-micron oil mist, and industrial odors where mechanical filters reach their limits.',
+      description: 'Advanced corona discharge technology for fine particle separation. Ideal for smoke, sub-micron oil mist, and industrial odor control. Electrostatic filtration ionizes and captures particles on collector plates with high separation efficiency where conventional filters struggle.',
+      images: [fotoe1, fotoe2, fotoe3],
+      features: [
+        { icon: Cpu, title: 'Electrostatic Technology', desc: 'Ionizes and captures sub-micron particles (including smoke) on collector plates. Achieves high separation efficiency where conventional filters struggle.' },
+        { icon: Wrench, title: 'Low Maintenance Operation', desc: 'Robust ionizer design with optional self-cleaning system. Reduces manual cleaning cycles and extends service life.' },
+        { icon: Wifi, title: 'Industry 4.0 Ready', desc: 'Premium version includes Siemens Touch-Panel, PROFINET/PROFIBUS connectivity, and real-time parameter monitoring for smart factory integration.' },
+        { icon: Box, title: 'Compact & Flexible', desc: '818 × 466 × 566 mm footprint. Easy to retrofit. Optional Service Trolley allows on-site cleaning without module removal.' }
+      ],
+      specs: [
+        { label: 'Dimensions', value: '818 × 466 × 566', unit: 'mm' },
+        { label: 'Technology', value: 'Corona Discharge', unit: 'Ionization' },
+        { label: 'Particle Capture', value: 'Sub-micron', unit: 'Including smoke' },
+        { label: 'Connectivity', value: 'PROFINET/PROFIBUS', unit: 'Optional' },
+        { label: 'Control Panel', value: 'Siemens Touch', unit: 'Premium' },
+        { label: 'Service', value: 'Self-cleaning', unit: 'Optional' }
+      ],
+      applications: ['Machining with high-speed tools', 'Smoke from cutting fluids', 'Industrial soldering & welding', 'Chemical & pharmaceutical processes'],
+      cta: 'Request Electrostatic Filtration Quote'
     }
   };
 
@@ -52,14 +67,14 @@ const Products = () => {
 
   // Auto-play carousel effect
   useEffect(() => {
-    if (!isAutoPlay || selectedProduct !== 'mechanical' || currentProduct.images.length === 0) return;
+    if (!isAutoPlay || currentProduct.images.length === 0) return;
 
     const interval = setInterval(() => {
       setActiveImage((prev) => (prev + 1) % currentProduct.images.length);
     }, 4000); // Change image every 4 seconds
 
     return () => clearInterval(interval);
-  }, [isAutoPlay, selectedProduct, currentProduct.images.length]);
+  }, [isAutoPlay, currentProduct.images.length]);
 
   // Reset to first image when switching products
   useEffect(() => {
@@ -119,7 +134,6 @@ const Products = () => {
           >
             <Zap className="w-5 h-5" />
             Electrostatic Filtration
-            <span className="bg-cyan-500 text-white text-xs px-2 py-0.5 rounded-full">Coming Soon</span>
           </motion.button>
         </motion.div>
 
@@ -294,27 +308,156 @@ const Products = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
-              className="text-center py-16 bg-white rounded-2xl shadow-lg"
+              className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start"
             >
-              <div className="max-w-2xl mx-auto px-8">
-                <div className="w-20 h-20 bg-cyan-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Zap className="w-10 h-10 text-cyan-600" />
-                </div>
-                <h3 className="text-3xl font-bold text-zinc-900 mb-4">
-                  Electrostatic Filtration
-                </h3>
-                <p className="text-xl text-zinc-600 mb-6">
-                  Advanced electrostatic precipitation technology for ultra-fine particulate removal.
-                </p>
-                <p className="text-zinc-500 mb-8">
-                  Our engineering team is developing next-generation electrostatic filtration systems for applications requiring the highest air purity standards.
-                </p>
-                <motion.button
-                  className="bg-blue-700 text-white px-8 py-4 rounded-full font-semibold hover:bg-blue-800 transition-colors duration-200"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+              {/* Image Gallery - Auto-rotating carousel */}
+              <div className="space-y-4">
+                {/* Main Image with Auto-rotation */}
+                <motion.div
+                  className="relative bg-white rounded-2xl overflow-hidden shadow-lg aspect-[4/3]"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.6 }}
                 >
-                  Get Notified When Available
+                  <AnimatePresence mode="wait">
+                    <motion.img
+                      key={activeImage}
+                      src={currentProduct.images[activeImage]}
+                      alt={`Emifree Electrostatic Filtration System - View ${activeImage + 1}`}
+                      className="w-full h-full object-contain p-6"
+                      initial={{ opacity: 0, scale: 1.05 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={{ duration: 0.5 }}
+                      style={{ objectFit: 'contain' }}
+                    />
+                  </AnimatePresence>
+
+                  {/* Auto-play Controls */}
+                  <div className="absolute bottom-4 right-4 flex items-center gap-2">
+                    <button
+                      onClick={() => setIsAutoPlay(!isAutoPlay)}
+                      className="p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-md hover:bg-white transition-colors duration-200"
+                      title={isAutoPlay ? 'Pause' : 'Play'}
+                    >
+                      {isAutoPlay ? (
+                        <Pause className="w-4 h-4 text-blue-700" />
+                      ) : (
+                        <Play className="w-4 h-4 text-blue-700" />
+                      )}
+                    </button>
+                  </div>
+
+                  {/* Image indicators */}
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                    {currentProduct.images.map((_, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => {
+                          setActiveImage(idx);
+                          setIsAutoPlay(false);
+                        }}
+                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                          activeImage === idx
+                            ? 'bg-blue-700 w-6'
+                            : 'bg-white/60 hover:bg-white'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </motion.div>
+
+                {/* Thumbnail Gallery */}
+                <div className="flex gap-4 justify-center">
+                  {currentProduct.images.map((img, idx) => (
+                    <motion.button
+                      key={idx}
+                      onClick={() => {
+                        setActiveImage(idx);
+                        setIsAutoPlay(false);
+                      }}
+                      className={`relative rounded-xl overflow-hidden shadow-md transition-all duration-300 flex-shrink-0 ${
+                        activeImage === idx
+                          ? 'ring-2 ring-blue-700 ring-offset-2 scale-105'
+                          : 'opacity-70 hover:opacity-100'
+                      }`}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <div className="w-28 h-28 bg-white p-2">
+                        <img
+                          src={img}
+                          alt={`Product view ${idx + 1}`}
+                          className="w-full h-full object-contain"
+                          style={{ objectFit: 'contain' }}
+                        />
+                      </div>
+                    </motion.button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Product Info */}
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-3xl font-bold text-zinc-900 mb-2">
+                    {currentProduct.tagline}
+                  </h3>
+                  <p className="text-lg text-zinc-600">
+                    {currentProduct.shortDesc}
+                  </p>
+                </div>
+
+                <p className="text-zinc-600 leading-relaxed">
+                  {currentProduct.description}
+                </p>
+
+                {/* Applications */}
+                <div>
+                  <h4 className="font-semibold text-zinc-900 mb-3">Applications:</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {currentProduct.applications.map((app) => (
+                      <span
+                        key={app}
+                        className="px-4 py-2 bg-cyan-50 text-cyan-700 text-sm font-medium rounded-full"
+                      >
+                        {app}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Key Features */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {currentProduct.features.map((feature, idx) => (
+                    <motion.div
+                      key={idx}
+                      className="bg-white p-4 rounded-xl shadow-sm border border-slate-100"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: idx * 0.1 }}
+                    >
+                      <div className="flex items-start gap-3">
+                        <div className="p-2 bg-blue-100 rounded-lg">
+                          <feature.icon className="w-5 h-5 text-blue-700" />
+                        </div>
+                        <div>
+                          <h5 className="font-semibold text-zinc-900 text-sm">{feature.title}</h5>
+                          <p className="text-zinc-500 text-xs mt-1">{feature.desc}</p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* CTA Button */}
+                <motion.button
+                  className="w-full bg-gradient-to-r from-blue-700 to-cyan-500 text-white px-8 py-4 rounded-full font-semibold text-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2"
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {currentProduct.cta}
+                  <ChevronRight className="w-5 h-5" />
                 </motion.button>
               </div>
             </motion.div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, Globe, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '../assets/logo.png';
+import EmiLogo from '../assets/emilogo.png';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -35,7 +36,6 @@ const Header = () => {
   const handleLangSelect = (lang) => {
     setSelectedLang(lang.code);
     setIsLangOpen(false);
-    // Future: Implement actual language switching logic here
   };
 
   return (
@@ -49,21 +49,38 @@ const Header = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo - Replaced text with image */}
-          <motion.div
-            className="flex-shrink-0"
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
-          >
-            <a href="/">
-              <img
-                src={Logo}
-                alt="Emifree Logo"
-                className="h-10 w-auto"
-              />
-            </a>
-          </motion.div>
+          {/* Dual Logo Section - both clickable to home */}
+          <div className="flex-shrink-0 flex items-center gap-3">
+            {/* Original Logo */}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            >
+              <a href="/">
+                <img
+                  src={Logo}
+                  alt="Emifree Logo"
+                  className="h-10 w-auto"
+                />
+              </a>
+            </motion.div>
 
+            {/* Second Logo - NOW ALSO CLICKABLE */}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            >
+              <a href="/">
+                <img
+                  src={EmiLogo}
+                  alt="EMI Logo"
+                  className="h-8 w-auto"
+                />
+              </a>
+            </motion.div>
+          </div>
+
+          {/* Desktop Navigation */}
           <nav className="hidden md:block">
             <div className="flex items-center space-x-1 bg-slate-100/80 backdrop-blur-sm rounded-full px-2 py-2">
               {navItems.map((item) => (
@@ -134,6 +151,7 @@ const Header = () => {
             </div>
           </div>
 
+          {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -146,6 +164,7 @@ const Header = () => {
         </div>
       </div>
 
+      {/* Mobile Menu Dropdown */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
