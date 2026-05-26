@@ -22,3 +22,9 @@ html, body {
   overflow-x: hidden;
   position: relative;
 }
+
+/* Fix Radix UI overriding overflow */
+:root, .radix-themes {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+}
