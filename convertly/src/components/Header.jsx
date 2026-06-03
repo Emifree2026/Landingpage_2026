@@ -29,7 +29,7 @@ const Header = () => {
     { label: 'Applications', href: '#applications' },
     { label: 'Products', href: '#products' },
     { label: 'Pricing', href: '#pricing' },
-    { label: 'Testimonials', href: '#testimonials' },
+    { label: 'Technology', href: '#technology' },
     { label: 'Contact', href: '#contact' }
   ];
 

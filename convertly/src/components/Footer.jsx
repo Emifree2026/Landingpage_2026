@@ -161,8 +161,7 @@ import React, { useState } from 'react';
                     SaaSFlow
                   </motion.h2>
                   <p className="text-zinc-400 mb-6 leading-relaxed">
-                    Transform your workflow with our AI-powered SaaS platform. 
-                    Scale your business beyond limits with enterprise-grade security and performance.
+                    Choose the Right Filtration Technology for Your Process.
                   </p>
 
                   {/* Social Links */}
