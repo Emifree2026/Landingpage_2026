@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Cog, Flame, Sparkles, Pill, Factory, Wrench } from 'lucide-react';
+import { Cog, Flame, Sparkles, Factory, Wrench, Car } from 'lucide-react';
 
 const Applications = () => {
   const applications = [
@@ -40,11 +40,11 @@ const Applications = () => {
       question: 'Industrial dust extraction system for metal fabrication shop'
     },
     {
-      icon: Pill,
-      title: 'Pharmaceutical & Food Processing',
-      description: 'Maintain cleanroom standards with HEPA-filtered air purification. Essential for environments requiring ISO 7 or ISO 8 cleanroom classifications.',
-      color: 'from-cyan-700 to-blue-800',
-      question: 'HEPA air filtration for pharmaceutical cleanroom requirements'
+      icon: Car,
+      title: 'Automotive',
+      description: 'Capture oil mist, coolant aerosol, and welding fumes from automotive production lines. Keep paint booths particle-free and EV battery assembly clean room compliant.',
+      color: 'from-cyan-700 to-cyan-600',
+      question: 'Best air filtration system for automotive manufacturing plant oil mist and welding fume extraction'
     }
   ];
 
@@ -140,6 +140,12 @@ const Applications = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
         >
           <motion.button
+            onClick={() => {
+              const techSection = document.getElementById('technology');
+              if (techSection) {
+                techSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }}
             className="bg-gradient-to-r from-blue-700 to-cyan-500 text-white px-8 py-4 rounded-full font-semibold text-lg hover:shadow-xl transition-all duration-300"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}

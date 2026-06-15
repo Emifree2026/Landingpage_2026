@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, Settings, Zap, Shield, Volume2, Pause, Play, Cpu, Wrench, Wifi, Box } from 'lucide-react';
+import { ChevronRight, Settings, Zap, Shield, Droplets, Pause, Play, Cpu, Wrench, Wifi, Box } from 'lucide-react';
 import fotom1 from '../assets/products/fotom1.webp';
 import fotom5 from '../assets/products/fotom5.webp';
 import fotom6 from '../assets/products/fotom6.webp';
@@ -22,10 +22,10 @@ const Products = () => {
       description: 'Our mechanical filtration systems use centrifugal force to separate oil mist and coolant fumes directly at the source. Designed for CNC lathes, mills, grinding machines, and industrial workshops where continuous production is critical.',
       images: [fotom1, fotom5, fotom6],
       features: [
-        { icon: Settings, title: 'Heavy-Duty Construction', desc: 'Industrial-grade sheet metal housing with powder-coated finish for durability in harsh workshop environments' },
-        { icon: Zap, title: 'High Airflow Capacity', desc: 'Up to 2,750 m³/hr airflow to handle multiple machining operations simultaneously' },
-        { icon: Shield, title: 'HEPA Filter Option', desc: 'Optional HEPA post-filter achieves 99.95% particle removal for cleanroom applications' },
-        { icon: Volume2, title: 'Low Noise Operation', desc: 'Optimized fan design keeps sound levels below 65 dB for operator comfort' }
+        { icon: Droplets, title: 'Self-Cleaning', desc: 'The built-in spray nozzles allow the collection system to be cleaned without removing the module.', highlight: true },
+        { icon: Settings, title: 'Heavy-Duty Construction', desc: 'Industrial-grade sheet metal housing with powder-coated finish for durability in harsh workshop environments', highlight: false },
+        { icon: Zap, title: 'High Airflow Capacity', desc: 'Up to 2,750 m³/hr airflow to handle multiple machining operations simultaneously', highlight: false },
+        { icon: Shield, title: 'HEPA Filter Option', desc: 'Optional HEPA post-filter achieves 99.95% particle removal for cleanroom applications', highlight: false }
       ],
       specs: [
         { label: 'Airflow', value: '1,500 - 2,750', unit: 'm³/hr' },
@@ -35,7 +35,7 @@ const Products = () => {
         { label: 'Weight', value: '85 - 120', unit: 'kg' },
         { label: 'Dimensions', value: '600 x 600 x 1,200', unit: 'mm' }
       ],
-      applications: ['CNC Machining', 'Grinding', 'Turning', 'Milling', 'Spark Eroding'],
+      applications: ['CNC Machining', 'Grinding', 'Turning', 'Milling', 'Sawing'],
       cta: 'Request Mechanical Filtration Quote'
     },
     electrostatic: {
@@ -45,10 +45,10 @@ const Products = () => {
       description: 'Advanced corona discharge technology for fine particle separation. Ideal for smoke, sub-micron oil mist, and industrial odor control. Electrostatic filtration ionizes and captures particles on collector plates with high separation efficiency where conventional filters struggle.',
       images: [fotoe1, fotoe2, fotoe3],
       features: [
-        { icon: Cpu, title: 'Electrostatic Technology', desc: 'Ionizes and captures sub-micron particles (including smoke) on collector plates. Achieves high separation efficiency where conventional filters struggle.' },
-        { icon: Wrench, title: 'Low Maintenance Operation', desc: 'Robust ionizer design with optional self-cleaning system. Reduces manual cleaning cycles and extends service life.' },
-        { icon: Wifi, title: 'Industry 4.0 Ready', desc: 'Premium version includes Siemens Touch-Panel, PROFINET/PROFIBUS connectivity, and real-time parameter monitoring for smart factory integration.' },
-        { icon: Box, title: 'Compact & Flexible', desc: '818 × 466 × 566 mm footprint. Easy to retrofit. Optional Service Trolley allows on-site cleaning without module removal.' }
+        { icon: Cpu, title: 'Electrostatic Technology', desc: 'Ionizes and captures sub-micron particles (including smoke) on collector plates. Achieves high separation efficiency where conventional filters struggle.', highlight: false },
+        { icon: Wrench, title: 'Low Maintenance Operation', desc: 'Robust ionizer design with optional self-cleaning system. Reduces manual cleaning cycles and extends service life.', highlight: false },
+        { icon: Wifi, title: 'Industry 4.0 Ready', desc: 'Premium version includes Siemens Touch-Panel, PROFINET/PROFIBUS connectivity, and real-time parameter monitoring for smart factory integration.', highlight: false },
+        { icon: Box, title: 'Compact & Flexible', desc: '818 × 466 × 566 mm footprint. Easy to retrofit. Optional Service Trolley allows on-site cleaning without module removal.', highlight: false }
       ],
       specs: [
         { label: 'Dimensions', value: '818 × 466 × 566', unit: 'mm' },
@@ -71,7 +71,7 @@ const Products = () => {
 
     const interval = setInterval(() => {
       setActiveImage((prev) => (prev + 1) % currentProduct.images.length);
-    }, 4000); // Change image every 4 seconds
+    }, 4000);
 
     return () => clearInterval(interval);
   }, [isAutoPlay, currentProduct.images.length]);
@@ -148,9 +148,8 @@ const Products = () => {
               transition={{ duration: 0.5 }}
               className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start"
             >
-              {/* Image Gallery - Auto-rotating carousel */}
+              {/* Image Gallery */}
               <div className="space-y-4">
-                {/* Main Image with Auto-rotation */}
                 <motion.div
                   className="relative bg-white rounded-2xl overflow-hidden shadow-lg aspect-[4/3]"
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -171,7 +170,6 @@ const Products = () => {
                     />
                   </AnimatePresence>
 
-                  {/* Auto-play Controls */}
                   <div className="absolute bottom-4 right-4 flex items-center gap-2">
                     <button
                       onClick={() => setIsAutoPlay(!isAutoPlay)}
@@ -186,7 +184,6 @@ const Products = () => {
                     </button>
                   </div>
 
-                  {/* Image indicators */}
                   <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
                     {currentProduct.images.map((_, idx) => (
                       <button
@@ -205,7 +202,6 @@ const Products = () => {
                   </div>
                 </motion.div>
 
-                {/* Thumbnail Gallery - Fixed Uniform Size */}
                 <div className="flex gap-4 justify-center">
                   {currentProduct.images.map((img, idx) => (
                     <motion.button
@@ -270,18 +266,35 @@ const Products = () => {
                   {currentProduct.features.map((feature, idx) => (
                     <motion.div
                       key={idx}
-                      className="bg-white p-4 rounded-xl shadow-sm border border-slate-100"
+                      className={`p-4 rounded-xl shadow-sm border transition-all duration-300 ${
+                        feature.highlight
+                          ? 'bg-gradient-to-br from-blue-700 to-cyan-600 border-blue-600 md:col-span-2'
+                          : 'bg-white border-slate-100'
+                      }`}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.4, delay: idx * 0.1 }}
+                      whileHover={feature.highlight ? { scale: 1.02 } : { y: -4 }}
                     >
                       <div className="flex items-start gap-3">
-                        <div className="p-2 bg-blue-100 rounded-lg">
-                          <feature.icon className="w-5 h-5 text-blue-700" />
+                        <div className={`p-2 rounded-lg ${
+                          feature.highlight ? 'bg-white/20' : 'bg-blue-100'
+                        }`}>
+                          <feature.icon className={`w-5 h-5 ${
+                            feature.highlight ? 'text-white' : 'text-blue-700'
+                          }`} />
                         </div>
                         <div>
-                          <h5 className="font-semibold text-zinc-900 text-sm">{feature.title}</h5>
-                          <p className="text-zinc-500 text-xs mt-1">{feature.desc}</p>
+                          <h5 className={`font-semibold text-sm ${
+                            feature.highlight ? 'text-white' : 'text-zinc-900'
+                          }`}>
+                            {feature.title}
+                          </h5>
+                          <p className={`text-xs mt-1 ${
+                            feature.highlight ? 'text-blue-100' : 'text-zinc-500'
+                          }`}>
+                            {feature.desc}
+                          </p>
                         </div>
                       </div>
                     </motion.div>
@@ -310,9 +323,8 @@ const Products = () => {
               transition={{ duration: 0.5 }}
               className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start"
             >
-              {/* Image Gallery - Auto-rotating carousel */}
+              {/* Image Gallery */}
               <div className="space-y-4">
-                {/* Main Image with Auto-rotation */}
                 <motion.div
                   className="relative bg-white rounded-2xl overflow-hidden shadow-lg aspect-[4/3]"
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -333,7 +345,6 @@ const Products = () => {
                     />
                   </AnimatePresence>
 
-                  {/* Auto-play Controls */}
                   <div className="absolute bottom-4 right-4 flex items-center gap-2">
                     <button
                       onClick={() => setIsAutoPlay(!isAutoPlay)}
@@ -348,7 +359,6 @@ const Products = () => {
                     </button>
                   </div>
 
-                  {/* Image indicators */}
                   <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
                     {currentProduct.images.map((_, idx) => (
                       <button
@@ -367,7 +377,6 @@ const Products = () => {
                   </div>
                 </motion.div>
 
-                {/* Thumbnail Gallery */}
                 <div className="flex gap-4 justify-center">
                   {currentProduct.images.map((img, idx) => (
                     <motion.button

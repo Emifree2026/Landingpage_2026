@@ -3,8 +3,8 @@ import React from 'react';
     import Hero from '../components/Hero';
     import Applications from '../components/Applications';
     import Products from '../components/Products';
-    import Testimonials from '../components/Testimonials';
-    import Pricing from '../components/Pricing';
+    import Technology from '../components/Technology';
+    import Knowledge from '../components/Knowledge';
     import Contact from '../components/Contact';
     import Footer from '../components/Footer';
 
@@ -16,8 +16,8 @@ import React from 'react';
             <Hero />
             <Applications />
             <Products />
-            <Testimonials />
-            <Pricing />
+            <Technology />
+            <Knowledge />
             <Contact />
           </main>
           <Footer />

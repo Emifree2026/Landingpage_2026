@@ -87,7 +87,7 @@ function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            Low maintenance filtration solutions
+            Low maintenance air filtration solutions
           </motion.h1>
 
           <motion.p
@@ -104,7 +104,7 @@ function Hero() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
           >
-            Contact us
+            See how it works
             <ArrowRight className="w-5 h-5" />
           </motion.button>
         </div>
