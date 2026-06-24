@@ -91,7 +91,7 @@ import React, { useState } from 'react';
               <div className="max-w-4xl mx-auto text-center">
                 <h3 className="text-3xl md:text-4xl font-bold mb-4">
                   Stay Updated with
-                  <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent"> SaaSFlow</span>
+                  <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent"> Emifree</span>
                 </h3>
                 <p className="text-xl text-zinc-400 mb-8">
                   Get the latest updates, tips, and insights delivered to your inbox.
@@ -158,7 +158,7 @@ import React, { useState } from 'react';
                     className="text-3xl font-bold text-blue-400 font-mono mb-4"
                     whileHover={{ scale: 1.05 }}
                   >
-                    SaaSFlow
+                    Emifree
                   </motion.h2>
                   <p className="text-zinc-400 mb-6 leading-relaxed">
                     Choose the Right Filtration Technology for Your Process.
