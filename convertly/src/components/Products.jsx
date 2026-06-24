@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import InquiryFormModal from './InquiryFormModal';
 import {
-  ChevronRight, Settings, Zap, Shield, Volume2, Pause, Play,
+  ChevronRight, Settings, Zap, Shield, Droplets, Pause, Play,
   Cpu, Wrench, Wifi, Box, X, Send, CheckCircle, AlertCircle,
-  Building2, User, Phone, MapPin, Briefcase, Layers, Droplets,
+  Building2, User, Phone, MapPin, Briefcase, Layers,
   Gauge, Hash, MessageSquare, Calendar
 } from 'lucide-react';
 import fotom1 from '../assets/products/fotom1.webp';
@@ -13,6 +13,7 @@ import fotom6 from '../assets/products/fotom6.webp';
 import fotoe1 from '../assets/products/fotoe1.webp';
 import fotoe2 from '../assets/products/fotoe2.webp';
 import fotoe3 from '../assets/products/fotoe3.webp';
+import dust1 from '../assets/products/dust1.webp'; // ← new import
 
 /* ─────────────────────────────────────────────────────────────────────────────
    PRODUCTS SECTION
@@ -44,7 +45,6 @@ const Products = () => {
         { icon: Settings, title: 'Heavy-Duty Construction', desc: 'Industrial-grade sheet metal housing with powder-coated finish for durability in harsh workshop environments' },
         { icon: Zap, title: 'High Airflow Capacity', desc: 'Up to 2,750 m³/hr airflow to handle multiple machining operations simultaneously' },
         { icon: Shield, title: 'HEPA Filter Option', desc: 'Optional HEPA post-filter achieves 99.95% particle removal for cleanroom applications' },
-        // ── Changed from "Low Noise" to "Self‑Cleaning" ──
         { icon: Droplets, title: 'Self-Cleaning', desc: 'The built-in spray nozzles allow the collection system to be cleaned without removing the module' }
       ],
       specs: [
@@ -80,6 +80,30 @@ const Products = () => {
       ],
       applications: ['Machining with high-speed tools', 'Smoke from cutting fluids', 'Industrial soldering & welding', 'Chemical & pharmaceutical processes'],
       cta: 'Request Electrostatic Filtration Quote'
+    },
+    // ─── NEW: Dust Filtration ──────────────────────────────────────────────────
+    dust: {
+      name: 'Dust Filtration',
+      tagline: 'High-Efficiency Dust Collection for Dry Processes',
+      shortDesc: 'Reliable cartridge and baghouse solutions for heavy dust loads from woodworking, metal grinding, and bulk material handling.',
+      description: 'Our dust filtration systems are engineered for dry dust applications. Using advanced media technology and pulse-jet cleaning, they deliver consistent airflow and long filter life – even in the most demanding industrial settings.',
+      images: [dust1, dust1, dust1], // Using the same image for all three views
+      features: [
+        { icon: Box, title: 'Modular Design', desc: 'Scalable cartridge and baghouse configurations to match your airflow and space requirements.' },
+        { icon: Gauge, title: 'Pulse-Jet Cleaning', desc: 'Automatic compressed-air cleaning maintains low pressure drop and extends filter life.' },
+        { icon: Shield, title: 'Explosion Protection', desc: 'Optional ATEX-certified components for safe operation in combustible dust environments.' },
+        { icon: Layers, title: 'Multiple Filtration Media', desc: 'Choose from cellulose, polyester, or PTFE membranes for optimal efficiency with your specific dust type.' }
+      ],
+      specs: [
+        { label: 'Airflow', value: '2,000 - 10,000', unit: 'm³/hr' },
+        { label: 'Filter Area', value: '20 - 200', unit: 'm²' },
+        { label: 'Cleaning Method', value: 'Pulse-jet', unit: 'Automated' },
+        { label: 'Dust Load', value: 'Up to 100', unit: 'g/m³' },
+        { label: 'Efficiency', value: '> 99.9', unit: '%' },
+        { label: 'Operating Temp', value: '-20 to +80', unit: '°C' }
+      ],
+      applications: ['Woodworking', 'Metal Grinding', 'Minerals Processing', 'Food & Grain', 'Pharmaceuticals'],
+      cta: 'Request Dust Filtration Quote'
     }
   };
 
@@ -103,7 +127,9 @@ const Products = () => {
   const renderProductContent = (productKey) => {
     const altPrefix = productKey === 'mechanical'
       ? 'Emifree Mechanical Filtration System'
-      : 'Emifree Electrostatic Filtration System';
+      : productKey === 'electrostatic'
+      ? 'Emifree Electrostatic Filtration System'
+      : 'Emifree Dust Filtration System';
 
     return (
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
@@ -208,7 +234,7 @@ const Products = () => {
           {/* Key Features */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {currentProduct.features.map((feature, idx) => {
-              // Determine if this is the Self‑Cleaning card
+              // Determine if this is the Self‑Cleaning card (only for mechanical)
               const isSelfCleaning = feature.title === 'Self-Cleaning';
 
               return (
@@ -304,7 +330,7 @@ const Products = () => {
             Mechanical Filtration
           </motion.button>
           <motion.button
-            onClick={() => setSelectedProduct('electrostatic')}
+            onClick={() => { setSelectedProduct('electrostatic'); setActiveImage(0); }}
             className={`px-8 py-4 rounded-full font-semibold transition-all duration-300 flex items-center gap-2 ${
               selectedProduct === 'electrostatic'
                 ? 'bg-blue-700 text-white shadow-lg'
@@ -315,6 +341,20 @@ const Products = () => {
           >
             <Zap className="w-5 h-5" />
             Electrostatic Filtration
+          </motion.button>
+          {/* ─── NEW TAB: Dust Filtration ─────────────────────────────────────── */}
+          <motion.button
+            onClick={() => { setSelectedProduct('dust'); setActiveImage(0); }}
+            className={`px-8 py-4 rounded-full font-semibold transition-all duration-300 flex items-center gap-2 ${
+              selectedProduct === 'dust'
+                ? 'bg-blue-700 text-white shadow-lg'
+                : 'bg-white text-zinc-600 hover:bg-slate-100 hover:text-blue-700 border border-slate-200'
+            }`}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Layers className="w-5 h-5" />
+            Dust Filtration
           </motion.button>
         </motion.div>
 
@@ -340,6 +380,17 @@ const Products = () => {
               transition={{ duration: 0.5 }}
             >
               {renderProductContent('electrostatic')}
+            </motion.div>
+          )}
+          {selectedProduct === 'dust' && (
+            <motion.div
+              key="dust"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+            >
+              {renderProductContent('dust')}
             </motion.div>
           )}
         </AnimatePresence>
