@@ -424,7 +424,7 @@ const InquiryFormModal = ({ isOpen, onClose, productType }) => {
                     <p style={{ fontSize: '0.78rem', color: '#9ca3af', margin: 0, flex: 1, minWidth: '160px' }}>
                       Alternatively, send machine photos to{' '}
                       <a href="mailto:info@emifree.com" style={{ color: '#2563eb', textDecoration: 'none' }}>info@emifree.com</a>
-                      {' '}or via telephone.
+                      {' '}.
                     </p>
                     <div className="emifree-footer-buttons" style={{ display: 'flex', gap: '10px', flexShrink: 0 }}>
                       <button
