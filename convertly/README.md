@@ -1,107 +1,49 @@
-# Convertly – Free React SaaS Landing Page Template
+# Emifree — Industrial Air Filtration
 
-Convertly is a free, open-source, and conversion-focused **SaaS landing page template** built with [**Meku – AI web app builder**](https://meku.dev/). Based on React.js and Tailwind CSS v4.
+Landing page for **Emifree GmbH** (Berlin). Self-cleaning filtration systems for CNC, metalworking, and industrial manufacturing environments.
 
-It’s designed to help startups, SaaS founders, and developers launch fast with a modern, responsive, and performance-optimized landing page.  
+## Stack
 
-With **pre-built sections** like Hero, Features, Portfolio, Pricing, Testimonials, and Contact, Convertly gives you everything you need to present your product or service with impact.
+- **React 18** + **Vite 8**
+- **Tailwind CSS 3** (utility-first, custom theme in `tailwind.config.js`)
+- **framer-motion** for entrance and hover animations
+- **lucide-react** for icons
+- **React Hook Form** + **Zod** for the inquiry form
+- **react-toastify** for success / error toasts
+- **React Router 6** for client-side routing
 
-👉 Perfect for **showcasing your SaaS, portfolio, or agency services** with zero design hassle.
-
----
-
-## Live Preview
-
-<img width="1470" height="830" alt="SaaS Landing Page Template Preview – Hero and Features" src="https://github.com/user-attachments/assets/d6c07814-f510-4c43-81f0-ac0dab76ec29" />
-
-👉 [Live Demo – Convertly](https://convertly.meku.app/)
-
-[<img width="280" height="45" alt="Create and Deploy with Meku" src="https://github.com/user-attachments/assets/7ab2827c-749e-45cc-ba68-2c1142f312f4" />](https://meku.dev/)
-
----
-
-## Features
-
--   **Responsive & Modern UI** – Built with Tailwind CSS for a sleek, adaptive design.
--   **Hero Section** – Capture attention with bold headlines and CTAs.
--   **Features Showcase** – Highlight product benefits in a clean grid layout.
--   **Portfolio Section** – Present your projects or case studies with style.
--   **Pricing Plans** – Ready-to-use SaaS pricing section for easy setup.
--   **Testimonials** – Showcase social proof with customer feedback.
--   **FAQ & Contact** – Pre-built FAQ layout + lead capture contact form.
--   **404 Not Found Page** – Ready error page for broken routes.
-
----
-
-## Tech Stack
-
--   **Frontend**: React, Vite
--   **Styling**: Tailwind CSS, PostCSS
--   **Build Tools**: Vite, npm/yarn
--   **Animations & Enhancements**: Extendable with Framer Motion, React Toastify (optional)
-
----
-
-## Getting Started
-
-### Prerequisites
-
--   Node.js (v18+ recommended)
--   npm or yarn
-
-### Installation
+## Develop
 
 ```bash
-git clone https://github.com/MekuHQ/convertly.git
-cd convertly
 npm install
-# or
-yarn install
+npm run dev      # http://localhost:5173
+npm run build    # production build to /dist
+npm run preview  # preview the production build
 ```
 
-### Running Locally
+## Sections
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+The page is composed in `src/pages/Home.jsx`:
 
-The app will be available at `http://localhost:5173`.
+1. **Header** — fixed nav with phone CTA, language selector, mobile menu
+2. **Hero** — full-bleed video background with overlaid headline + CTA
+3. **Applications** — six industrial segments with icons and SEO questions
+4. **Products** — tabbed Mechanical / Electrostatic / Dust filtration systems with image gallery, spec sheet, and inquiry modal
+5. **Technology** — ECO AIR vs EARIA comparison, step-by-step process, shared benefits, product variants
+6. **Knowledge** — tabbed Industry Insights / About Us / Downloads with per-tab SEO meta + JSON-LD
+7. **Contact** — inquiry form + contact info cards
+8. **Footer** — newsletter signup + site map + legal line
 
-### Building for Production
+A 404 page (`src/pages/NotFound.jsx`) handles unmatched routes.
 
-```bash
-npm run build
-# or
-yarn build
-```
+## Inquiry form
 
----
+The Contact form and the in-Product inquiry modal both submit via `react-hook-form` + `zod` validation. Both currently simulate submission with a `setTimeout` and surface a success toast; wire a real endpoint before launch.
 
-## Project Structure
+## SEO
 
--   `src/components/` – Reusable UI components (Hero, Features, Pricing, Portfolio, Testimonials, Contact, Footer, Header)
--   `src/pages/` – Main app pages (Home, NotFound)
--   `App.jsx` – Main app entry and routing
--   `index.html` – HTML entry file
--   `index.jsx` / `main.jsx` – React entry points
--   `styles.css` / `index.css` – Tailwind CSS styles
--   `tailwind.config.js` – Tailwind CSS configuration
--   `postcss.config.js` – PostCSS configuration
--   `vite.config.js` – Vite configuration
--   `package.json` – Project dependencies and scripts
-
----
-
-## ⚡ [Built with Meku – AI App Builder](https://meku.dev/) | <img width="70" height="20" alt="Meku" src="https://github.com/user-attachments/assets/b11f7c7e-86d7-453a-8ca9-1c313c66f38b" />
-
-Convertly was generated using **Meku**, the AI-powered app builder for creating landing pages, dashboards, and full-stack apps in minutes.
-
-[<img width="280" height="45" alt="Create and Deploy with Meku" src="https://github.com/user-attachments/assets/7ab2827c-749e-45cc-ba68-2c1142f312f4" />](https://meku.dev/)
-
-⭐ If you find this useful, please give the repo a star!
+`Knowledge.jsx` updates `document.title`, `meta[name="description"]`, `<link rel="canonical">`, and appends a JSON-LD `<script>` per active tab. The root `index.html` provides defaults.
 
 ## License
 
-This project is licensed under the **MIT License**.
+Proprietary. See `LICENSE`.

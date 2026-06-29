@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
@@ -9,40 +9,24 @@ import ClientLogo4 from '../assets/logo_clients/NSK.svg';
 import ClientLogo5 from '../assets/logo_clients/knorr.svg';
 import ClientLogo6 from '../assets/logo_clients/siemens_logo.svg';
 
-const VIDEOS = [
-  '/videos/Landing Video_2.1.mp4',
-  '/videos/Video Project 7_web.mp4',
-];
+const VIDEOS = ['/videos/Landing Video_2.1.mp4'];
 
 function Hero() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const videoRef0 = useRef(null);
-  const videoRef1 = useRef(null);
-  const videoRefs = [videoRef0, videoRef1];
+  const videoRef = useRef(null);
 
-  const handleVideoEnd = useCallback(() => {
-    setActiveIndex((prev) => (prev + 1) % VIDEOS.length);
-  }, []);
-
+  // Restart the loop when the tab becomes visible again or on mount.
   useEffect(() => {
-    videoRefs.forEach((ref, i) => {
-      const el = ref.current;
-      if (!el) return;
-      if (i === activeIndex) {
-        el.currentTime = 0;
-        el.play().catch(() => {});
-      } else {
-        el.pause();
-      }
-    });
-  }, [activeIndex]);
-
-  useEffect(() => {
-    const el = videoRefs[activeIndex].current;
+    const el = videoRef.current;
     if (!el) return;
-    el.addEventListener('ended', handleVideoEnd);
-    return () => el.removeEventListener('ended', handleVideoEnd);
-  }, [activeIndex, handleVideoEnd]);
+    el.currentTime = 0;
+    const play = () => el.play().catch(() => {});
+    play();
+    const onVisibility = () => {
+      if (document.visibilityState === 'visible') play();
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => document.removeEventListener('visibilitychange', onVisibility);
+  }, []);
 
   // Two rows on mobile: row1 = 3 logos, row2 = 3 logos — all fit without wrapping
   const clientLogos = [
@@ -58,23 +42,23 @@ function Hero() {
     <div className="w-full overflow-x-hidden">
       <section className="relative w-full min-h-[100dvh] flex flex-col overflow-hidden bg-[#0a0a0a]">
 
-        {/* Background Videos */}
+        {/* Background Video */}
         <div className="absolute inset-0 w-full h-full">
-          {VIDEOS.map((src, i) => (
-            <motion.video
-              key={src}
-              ref={videoRefs[i]}
-              muted
-              playsInline
-              preload="auto"
-              className="absolute inset-0 w-full h-full object-cover"
-              animate={{ opacity: activeIndex === i ? 1 : 0 }}
-              transition={{ duration: 1.2, ease: 'easeInOut' }}
-              style={{ opacity: i === 0 ? 1 : 0 }}
-            >
-              <source src={src} type="video/mp4" />
-            </motion.video>
-          ))}
+          <motion.video
+            ref={videoRef}
+            muted
+            loop
+            playsInline
+            preload="auto"
+            poster="/src/assets/logo.png"
+            className="absolute inset-0 w-full h-full object-cover"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.2, ease: 'easeOut' }}
+            onLoadedData={(e) => { e.currentTarget.play().catch(() => {}); }}
+          >
+            <source src={VIDEOS[0]} type="video/mp4" />
+          </motion.video>
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30" />
           <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-transparent" />
         </div>
@@ -87,7 +71,7 @@ function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            Low maintenance air filtration solutions
+            Low maintenance filtration solutions
           </motion.h1>
 
           <motion.p
@@ -99,10 +83,17 @@ function Hero() {
             Engineered to clean itself.
           </motion.p>
 
+          {/* Updated Button with scroll to #technology */}
           <motion.button
-            className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-full font-semibold text-lg flex items-center gap-3 transition-all shadow-lg"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
+            onClick={() => {
+              const techSection = document.getElementById('technology');
+              if (techSection) {
+                techSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }}
+            className="bg-gradient-to-r from-blue-700 to-cyan-500 text-white px-8 py-4 rounded-full font-semibold text-lg flex items-center gap-3 transition-all duration-300 shadow-lg"
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
           >
             See how it works
             <ArrowRight className="w-5 h-5" />
@@ -127,7 +118,6 @@ function Hero() {
               {clientLogos.map((client, index) => (
                 <motion.div
                   key={client.name}
-                  // On mobile each item is ~33% wide so 3 fit per row
                   className="flex items-center justify-center w-[30%] sm:w-auto h-6 sm:h-8 md:h-10 grayscale hover:grayscale-0 opacity-50 hover:opacity-100 transition-all duration-300"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 0.5, y: 0 }}
@@ -146,23 +136,7 @@ function Hero() {
           </div>
         </motion.div>
 
-        {/* DOTS */}
-        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-2 z-20">
-          {VIDEOS.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setActiveIndex(i)}
-              className={`h-1.5 rounded-full transition-all duration-500 ${
-                activeIndex === i
-                  ? 'bg-emerald-400 w-6'
-                  : 'bg-white/30 w-1.5 hover:bg-white/50'
-              }`}
-              aria-label={`Switch to video ${i + 1}`}
-            />
-          ))}
-        </div>
-
-      </section>
+        </section>
     </div>
   );
 }

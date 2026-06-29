@@ -7,14 +7,19 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Home from './src/pages/Home.jsx';
 import NotFound from './src/pages/NotFound.jsx';
+import Blog from './src/pages/Blog.jsx';
+import BlogPost from './src/pages/BlogPost.jsx';
 
 export default function App() {
   return (
     <Theme appearance="inherit" radius="large" scaling="100%">
       <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-        <main className="min-h-screen w-full overflow-x-hidden bg-[#0a0a0a] text-gray-900 dark:bg-gray-900 dark:text-gray-50">
+        <main className="min-h-screen w-full overflow-x-hidden bg-white text-zinc-900">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/404" element={<NotFound />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <ToastContainer

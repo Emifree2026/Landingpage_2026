@@ -4,13 +4,12 @@ import React, { useState } from 'react';
     import { zodResolver } from '@hookform/resolvers/zod';
     import { z } from 'zod';
     import { toast } from 'react-toastify';
-    import { 
-      Twitter, 
-      Linkedin, 
-      Github, 
-      Mail, 
-      ArrowRight,
-      Heart
+    import {
+      Twitter,
+      Linkedin,
+      Github,
+      Mail,
+      ArrowRight
     } from 'lucide-react';
 
     const newsletterSchema = z.object({
@@ -44,7 +43,6 @@ import React, { useState } from 'react';
       const footerLinks = {
         Product: [
           { name: 'Features', href: '#features' },
-          { name: 'Pricing', href: '#pricing' },
           { name: 'API Documentation', href: '#' },
           { name: 'Integrations', href: '#' },
           { name: 'Changelog', href: '#' }
@@ -61,7 +59,7 @@ import React, { useState } from 'react';
           { name: 'Community', href: '#' },
           { name: 'Tutorials', href: '#' },
           { name: 'Webinars', href: '#' },
-          { name: 'Case Studies', href: '#portfolio' }
+          { name: 'Case Studies', href: '#knowledge' }
         ],
         Legal: [
           { name: 'Privacy Policy', href: '#' },
@@ -212,38 +210,16 @@ import React, { useState } from 'react';
             </div>
 
             {/* Bottom Section */}
-            <motion.div
-              className="py-8 border-t border-zinc-800 flex flex-col md:flex-row items-center justify-between"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              <div className="text-zinc-400 text-sm mb-4 md:mb-0">
-                © 2026 Emifree GmbH . All rights reserved.
+            <div className="py-8 border-t border-zinc-800 flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="text-zinc-400 text-sm">
+                © {new Date().getFullYear()} Emifree GmbH · Pestalozzistraße 13 · 12557 Berlin · Germany
               </div>
-
-              <div className="flex items-center text-zinc-400 text-sm">
-                <span>Built with</span>
-                <motion.div
-                  className="mx-1"
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 1, repeat: Infinity, repeatDelay: 2 }}
-                >
-                  <Heart className="w-4 h-4 text-red-500 fill-current" />
-                </motion.div>
-                <span>by</span>
-                <motion.a
-                  href="https://meku.dev"
-                  target="_blank"
-                  rel="nofollow"
-                  className="ml-1 text-blue-400 hover:text-blue-300 transition-colors duration-200"
-                  whileHover={{ scale: 1.05 }}
-                >
-                  Meku.dev
-                </motion.a>
+              <div className="flex items-center space-x-4 text-zinc-500 text-sm">
+                <a href="mailto:info@emifree.com" className="hover:text-white transition-colors">info@emifree.com</a>
+                <span aria-hidden="true">·</span>
+                <a href="tel:+493076283520" className="hover:text-white transition-colors">+49 307 628 3520</a>
               </div>
-            </motion.div>
+            </div>
           </div>
         </footer>
       );
