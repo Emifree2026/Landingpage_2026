@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { toast } from 'react-toastify';
-import { Mail, Phone, MapPin, Send, Clock, Users } from 'lucide-react';
+import { Mail, Phone, MapPin, Send } from 'lucide-react';
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -52,16 +52,10 @@ const Contact = () => {
     },
     {
       icon: MapPin,
-      title: 'Visit Us',
+      title: 'Direction',
       content: 'Pestalozzistraße 13',
       description: '12557 Berlin, Germany.'
     }
-  ];
-
-  const stats = [
-    { icon: Clock, value: '< 24h', label: 'Response Time' },
-    { icon: Users, value: '10k+', label: 'Happy Customers' },
-    { icon: Mail, value: '99%', label: 'Satisfaction Rate' }
   ];
 
   return (
@@ -213,80 +207,36 @@ const Contact = () => {
 
           {/* Contact Info */}
           <motion.div
-            className="space-y-8"
+            className="space-y-6"
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div>
-              <h3 className="text-2xl font-bold text-zinc-900 mb-8">Get in touch</h3>
-              
-              <div className="space-y-6">
-                {contactInfo.map((info, index) => (
-                  <motion.div
-                    key={info.title}
-                    className="flex items-start p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    whileHover={{ y: -4 }}
-                  >
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
-                      <info.icon className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-zinc-900 mb-1">{info.title}</h4>
-                      <p className="text-blue-700 font-medium mb-1">{info.content}</p>
-                      <p className="text-zinc-600 text-sm">{info.description}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
+            <h3 className="text-2xl font-bold text-zinc-900 mb-8">Get in touch</h3>
+            
+            <div className="space-y-6">
+              {contactInfo.map((info, index) => (
+                <motion.div
+                  key={info.title}
+                  className="flex items-start p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ y: -4 }}
+                >
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                    <info.icon className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-zinc-900 mb-1">{info.title}</h4>
+                    <p className="text-blue-700 font-medium mb-1">{info.content}</p>
+                    <p className="text-zinc-600 text-sm">{info.description}</p>
+                  </div>
+                </motion.div>
+              ))}
             </div>
-
-            {/* Stats */}
-            <motion.div
-              className="bg-gradient-to-br from-blue-700 to-cyan-500 rounded-3xl p-8 text-white"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              <h4 className="text-xl font-bold mb-6">Why choose us?</h4>
-              <div className="grid grid-cols-3 gap-4">
-                {stats.map((stat, index) => (
-                  <motion.div
-                    key={stat.label}
-                    className="text-center"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                  >
-                    <stat.icon className="w-8 h-8 mx-auto mb-2 opacity-80" />
-                    <div className="text-2xl font-bold">{stat.value}</div>
-                    <div className="text-sm opacity-80">{stat.label}</div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Map Placeholder */}
-            <motion.div
-              className="bg-slate-200 rounded-2xl h-64 flex items-center justify-center"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            >
-              <div className="text-center text-zinc-600">
-                <MapPin className="w-12 h-12 mx-auto mb-2" />
-                <p className="font-medium">Interactive Map</p>
-                <p className="text-sm">San Francisco, CA</p>
-              </div>
-            </motion.div>
           </motion.div>
         </div>
       </div>
