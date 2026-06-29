@@ -1,100 +1,45 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  CircleCheck, MoveRight, Wind, Settings, BarChart, Recycle, Cpu,
-  RefreshCw, ArrowRight, Check
+  CircleCheck, MoveRight, ArrowRight
 } from 'lucide-react';
+
+import stepEcoPreFiltration from '../assets/Tech/Step1.1_ECOAIR.jpg';
+import stepEcoCoalescence from '../assets/Tech/Step2.1_ECOAIR.webp';
+import stepEcoSelfCleaning from '../assets/Tech/Step3_clean.webp';
+
+import stepEariaPreFilter from '../assets/Tech/Step 1.webp';
+import stepEariaIonization from '../assets/Tech/Step 2.webp';
+import stepEariaCollectorPlates from '../assets/Tech/Step 3.webp';
+import stepEariaOilCollection from '../assets/Tech/Step 4.webp';
 
 const Technology = () => {
   // Refs for scroll navigation
-  const heroRef = useRef(null);
-  const selectorRef = useRef(null);
-  const comparisonRef = useRef(null);
   const processEcoRef = useRef(null);
   const processEariaRef = useRef(null);
-  const benefitsRef = useRef(null);
-  const variantsRef = useRef(null);
-  const ctaRef = useRef(null);
 
-  const [activeNav, setActiveNav] = useState('eco');
-
-  // Smooth scroll helper with offset for sticky header
+  // Smooth scroll helper with offset for the fixed header.
+  // The header height is measured live so it stays correct across
+  // responsive breakpoints.
   const scrollToElement = (elementRef) => {
-    if (elementRef && elementRef.current) {
-      const element = elementRef.current;
-      const offset = 80;
-      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-      window.scrollTo({
-        top: elementPosition - offset,
-        behavior: 'smooth'
-      });
-    }
-  };
-
-  // Intersection Observer for sticky mini nav
-  useEffect(() => {
-    const sections = [
-      { name: 'eco', ref: processEcoRef },
-      { name: 'earia', ref: processEariaRef },
-      { name: 'compare', ref: comparisonRef },
-    ];
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const name = entry.target.getAttribute('data-nav');
-            if (name === 'eco') setActiveNav('eco');
-            else if (name === 'earia') setActiveNav('earia');
-            else if (name === 'compare') setActiveNav('compare');
-          }
-        });
-      },
-      { threshold: 0.4, rootMargin: '-80px 0px -40% 0px' }
-    );
-    sections.forEach(({ name, ref }) => {
-      if (ref.current) {
-        ref.current.setAttribute('data-nav', name);
-        observer.observe(ref.current);
-      }
+    const element = elementRef?.current;
+    if (!element) return;
+    const headerHeight = document.querySelector('header')?.offsetHeight ?? 64;
+    const offset = headerHeight + 8; // +8 = breathing room
+    const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+    window.scrollTo({
+      top: elementPosition - offset,
+      behavior: 'smooth'
     });
-    return () => observer.disconnect();
-  }, []);
+  };
 
   return (
     <div
       id="technology"
       className="relative w-full bg-gradient-to-br from-slate-50 via-white to-blue-50 overflow-hidden scroll-mt-20"
     >
-      {/* Sticky Mini Navigation */}
-      <motion.div
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.4 }}
-        className="sticky top-20 z-30 flex justify-center px-2 py-3 overflow-x-auto"
-      >
-        <div className="bg-white/80 backdrop-blur-md rounded-full shadow-md px-2 py-1 flex gap-1 border border-slate-200 overflow-x-auto scrollbar-hide">
-          {[
-            { id: 'eco', label: 'ECO AIR', ref: processEcoRef },
-            { id: 'earia', label: 'EARIA', ref: processEariaRef },
-            { id: 'compare', label: 'COMPARE', ref: comparisonRef },
-          ].map((item) => (
-            <button
-              key={item.id}
-              onClick={() => scrollToElement(item.ref)}
-              className={`flex-shrink-0 px-2.5 md:px-5 py-1.5 md:py-2 text-[11px] md:text-sm font-medium rounded-full transition-all duration-200 ${
-                activeNav === item.id
-                  ? 'bg-slate-900 text-white shadow-md'
-                  : 'text-slate-700 hover:bg-slate-100'
-              }`}
-            >
-              {item.label}
-            </button>
-          ))}
-        </div>
-      </motion.div>
-
       {/* 1. Hero / Decision Intro */}
-      <section ref={heroRef} className="pt-24 pb-8 md:pt-20 md:pb-12 px-6 max-w-5xl mx-auto text-center">
+      <section className="pt-24 pb-8 md:pt-20 md:pb-12 px-6 max-w-5xl mx-auto text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -102,11 +47,7 @@ const Technology = () => {
           transition={{ duration: 0.8 }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-            Choose the Right
-            <span className="bg-gradient-to-r from-blue-700 to-cyan-500 bg-clip-text text-transparent">
-              {' '}Filtration Technology
-            </span>
-            {' '}for Your Process
+            Choose the Right <span className="text-blue-700">Filtration Technology</span> for Your Process
           </h2>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto">
             Whether you handle oil mist, emulsions, smoke, or ultra-fine aerosols — our self-cleaning
@@ -119,7 +60,7 @@ const Technology = () => {
       </section>
 
       {/* 2. Technology Selector Cards */}
-      <section ref={selectorRef} className="px-6 py-12 max-w-6xl mx-auto">
+      <section className="px-6 py-12 max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* ECO AIR Card */}
           <motion.div
@@ -188,55 +129,6 @@ const Technology = () => {
           </motion.div>
         </div>
 
-        {/* Micro Decision Helper */}
-        <div className="mt-14 text-center">
-          <h3 className="text-xl font-semibold text-slate-800">What are you filtering?</h3>
-          <div className="flex flex-wrap justify-center gap-4 mt-5">
-            <button
-              onClick={() => scrollToElement(processEcoRef)}
-              className="px-5 py-2.5 rounded-full bg-slate-900 text-white hover:bg-slate-800 transition shadow-md flex items-center gap-2"
-            >
-              Oil Mist / Emulsions → ECO AIR
-            </button>
-            <button
-              onClick={() => scrollToElement(processEariaRef)}
-              className="px-5 py-2.5 rounded-full border border-slate-300 bg-white text-slate-800 hover:bg-slate-50 transition shadow-sm flex items-center gap-2"
-            >
-              Smoke / Fine Aerosols → EARIA
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. Simplified Comparison */}
-      <section ref={comparisonRef} className="px-6 py-16 max-w-5xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden"
-        >
-          <div className="p-6 md:p-8">
-            <h3 className="text-2xl font-bold text-center mb-8">Quick Decision Overview</h3>
-            <div className="divide-y divide-slate-100">
-              {[
-                { feature: 'Best For', eco: 'Oil mist & emulsions', earia: 'Smoke & fine aerosols' },
-                { feature: 'Technology', eco: 'Mechanical + Coalescence', earia: 'Electrostatic' },
-                { feature: 'Self-Cleaning', eco: <Check className="text-emerald-600" size={20} />, earia: <Check className="text-emerald-600" size={20} /> },
-                { feature: 'Maintenance', eco: 'Very low', earia: 'Very low' },
-                { feature: 'Max Flow', eco: '1500 m³/h', earia: '1000 m³/h' },
-                { feature: 'Industry 4.0', eco: 'Premium', earia: 'Premium' },
-              ].map((row, idx) => (
-                <div key={idx} className="grid grid-cols-3 gap-4 py-4 first:pt-0">
-                  <div className="font-semibold text-slate-800">{row.feature}</div>
-                  <div className="text-slate-700 flex items-center gap-1">{row.eco}</div>
-                  <div className="text-slate-700 flex items-center gap-1">{row.earia}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
       </section>
 
       {/* 4. How It Works - side by side */}
@@ -251,9 +143,9 @@ const Technology = () => {
               { title: 'Self-Cleaning & Recycling', desc: 'Integrated spraying nozzles maintain constant performance and recycle collected oil.' },
             ]}
             imagePlaceholders={[
-              '/api/placeholder/400/300?text=Pre-Filtration+Mesh',
-              '/api/placeholder/400/300?text=Coalescence+Drums',
-              '/api/placeholder/400/300?text=Self-Cleaning+Nozzles',
+              stepEcoPreFiltration,
+              stepEcoCoalescence,
+              stepEcoSelfCleaning,
             ]}
             refProp={processEcoRef}
           />
@@ -267,74 +159,38 @@ const Technology = () => {
               { title: 'Oil particle collection', desc: 'Self-cleaning drain removes collected oil automatically.' },
             ]}
             imagePlaceholders={[
-              '/api/placeholder/400/300?text=Stainless+Pre-filter',
-              '/api/placeholder/400/300?text=Ionization+Chamber',
-              '/api/placeholder/400/300?text=Collector+Plates',
-              '/api/placeholder/400/300?text=Oil+Collection',
+              stepEariaPreFilter,
+              stepEariaIonization,
+              stepEariaCollectorPlates,
+              stepEariaOilCollection,
             ]}
             refProp={processEariaRef}
           />
         </div>
       </div>
 
-      {/* 5. Shared Benefits */}
-      <section ref={benefitsRef} className="px-6 py-16 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <motion.h3
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-3xl font-bold text-center mb-12"
-          >
-            Shared Benefits
-          </motion.h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { icon: <Wind />, title: 'Cleaner Air', desc: 'Cleaner industrial workspaces and safer operations.' },
-              { icon: <Settings />, title: 'Lower Maintenance', desc: 'Up to 95% reduction in maintenance.' },
-              { icon: <BarChart />, title: 'Energy Savings', desc: 'Air recirculation reduces operating costs.' },
-              { icon: <Recycle />, title: 'Oil Recycling', desc: 'Recover and reuse separated oil.' },
-              { icon: <Cpu />, title: 'Industry 4.0 Ready', desc: 'PROFINET, PROFIBUS, Siemens HMI.' },
-              { icon: <RefreshCw />, title: 'Easy Retrofit', desc: 'Compact architecture for new and existing machines.' },
-            ].map((benefit, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.05 }}
-                whileHover={{ y: -4 }}
-                className="bg-slate-50 rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-md transition-all"
-              >
-                <div className="w-10 h-10 bg-blue-100 text-blue-700 rounded-xl flex items-center justify-center mb-4">
-                  {benefit.icon}
-                </div>
-                <h4 className="text-xl font-bold mb-2">{benefit.title}</h4>
-                <p className="text-slate-600">{benefit.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 6. Product Variants */}
-      <section ref={variantsRef} className="px-6 py-16 max-w-6xl mx-auto">
-        <ProductVariants />
-      </section>
-
-      {/* 7. CTA Section */}
-      <section ref={ctaRef} className="px-6 py-20">
+      {/* 6. CTA Section */}
+      <section className="px-6 py-20">
         <div className="max-w-4xl mx-auto bg-gradient-to-br from-blue-50 to-slate-100 rounded-3xl shadow-xl p-8 md:p-12 text-center">
           <h3 className="text-3xl md:text-4xl font-bold text-slate-900">
             Not sure which filtration technology fits your application?
           </h3>
           <p className="text-slate-700 text-lg mt-4 max-w-2xl mx-auto">
-            Tell us your contamination type, airflow requirements, or machine setup — we’ll recommend the right solution.
+            Tell us your contamination type, airflow requirements, or machine setup — we'll recommend the right solution.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
-            <button className="px-6 py-3 border border-slate-300 bg-white rounded-full font-medium text-slate-800 hover:bg-slate-50 transition">
+            <a
+              href="/#contact"
+              className="px-6 py-3 border border-slate-300 bg-white rounded-full font-medium text-slate-800 hover:bg-slate-50 transition focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            >
               Get expert recommendation
-            </button>
+            </a>
+            <a
+              href="/#knowledge"
+              className="px-6 py-3 rounded-full font-medium text-blue-700 hover:text-blue-800 inline-flex items-center justify-center gap-1 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            >
+              View more Technical Specs <ArrowRight size={16} aria-hidden="true" />
+            </a>
           </div>
         </div>
       </section>
@@ -392,7 +248,7 @@ const ProcessSection = ({ title, subtitle, steps, imagePlaceholders, refProp }) 
               onClick={() => setActiveStep(idx)}
               className={`text-left px-4 py-3 rounded-xl transition-all ${
                 activeStep === idx
-                  ? 'bg-blue-50 border-l-4 border-blue-600 font-semibold text-blue-800'
+                  ? 'bg-blue-50 font-semibold text-blue-800'
                   : 'hover:bg-slate-50 text-slate-600'
               }`}
             >
@@ -411,11 +267,11 @@ const ProcessSection = ({ title, subtitle, steps, imagePlaceholders, refProp }) 
           transition={{ duration: 0.3 }}
           className="mt-2"
         >
-          <div className="rounded-2xl overflow-hidden bg-slate-100 h-48 md:h-56 flex items-center justify-center">
+          <div className="rounded-2xl overflow-hidden bg-slate-100 h-64 md:h-80 flex items-center justify-center p-4">
             <img
               src={imagePlaceholders[activeStep]}
               alt={steps[activeStep].title}
-              className="w-full h-full object-cover"
+              className="max-w-full max-h-full w-auto h-auto object-contain"
               onError={(e) => {
                 e.target.src = 'https://placehold.co/600x400/e2e8f0/1e293b?text=Illustration';
               }}
@@ -432,122 +288,9 @@ const ProcessSection = ({ title, subtitle, steps, imagePlaceholders, refProp }) 
 };
 
 // ------------------------------------------------------------------
-// Product Variants with Tabs
+// Product Variants with Tabs — removed (September 2026 cleanup).
+// The "View more Technical Specs" CTA from this section lives in the
+// CTA card above, alongside "Get expert recommendation".
 // ------------------------------------------------------------------
-const ProductVariants = () => {
-  const [activeMainTab, setActiveMainTab] = useState('eco');
-  const [ecoSubTab, setEcoSubTab] = useState('1200');
-
-  return (
-    <div>
-      <h3 className="text-3xl font-bold text-center mb-8">Product Variants</h3>
-      <div className="flex justify-center gap-2 border-b border-slate-200 mb-8">
-        {[
-          { id: 'eco', label: 'ECO AIR' },
-          { id: 'earia', label: 'EARIA' },
-        ].map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveMainTab(tab.id)}
-            className={`px-6 py-2 text-lg font-medium transition-all ${
-              activeMainTab === tab.id
-                ? 'text-blue-600 border-b-2 border-blue-600'
-                : 'text-slate-500 hover:text-slate-800'
-            }`}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
-
-      <AnimatePresence mode="wait">
-        {activeMainTab === 'eco' && (
-          <motion.div
-            key="eco"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-          >
-            <div className="flex justify-center gap-3 mb-8">
-              {['1200', '1500'].map((size) => (
-                <button
-                  key={size}
-                  onClick={() => setEcoSubTab(size)}
-                  className={`px-5 py-1.5 rounded-full text-sm font-medium transition ${
-                    ecoSubTab === size
-                      ? 'bg-slate-800 text-white'
-                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                  }`}
-                >
-                  {size} m³/h
-                </button>
-              ))}
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {['Basis', 'Advanced', 'Premium'].map((variant) => {
-                const features = {
-                  'Self-Cleaning': variant === 'Basis' ? '—' : '✓',
-                  Automation: variant === 'Premium' ? '✓' : '—',
-                  'Siemens HMI': variant === 'Premium' ? '✓' : '—',
-                  'Frequency Converter': variant === 'Premium' ? '✓' : '—',
-                };
-                return (
-                  <div key={variant} className="bg-white rounded-2xl border p-5 shadow-sm hover:shadow-md transition">
-                    <h4 className="text-xl font-bold mb-3">{variant}</h4>
-                    <div className="space-y-2 text-sm">
-                      {Object.entries(features).map(([key, val]) => (
-                        <div key={key} className="flex justify-between">
-                          <span className="text-slate-500">{key}</span>
-                          <span className={val === '✓' ? 'text-emerald-600 font-medium' : 'text-slate-400'}>
-                            {val}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            <div className="text-center mt-8">
-              <button className="text-blue-600 font-medium flex items-center gap-1 mx-auto hover:gap-2 transition">
-                View Full Technical Specs <ArrowRight size={16} />
-              </button>
-            </div>
-          </motion.div>
-        )}
-
-        {activeMainTab === 'earia' && (
-          <motion.div
-            key="earia"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto"
-          >
-            {['Basis', 'Premium'].map((variant) => {
-              const features =
-                variant === 'Basis'
-                  ? { 'Self-cleaning': '✓', 'Touch panel': '—', Automation: '—', 'PROFINET / PROFIBUS': '—' }
-                  : { 'Self-cleaning': '✓', 'Touch panel': '✓', Automation: '✓', 'PROFINET / PROFIBUS': '✓' };
-              return (
-                <div key={variant} className="bg-white rounded-2xl border p-6 shadow-sm">
-                  <h4 className="text-2xl font-bold mb-4">{variant}</h4>
-                  <div className="space-y-2">
-                    {Object.entries(features).map(([key, val]) => (
-                      <div key={key} className="flex justify-between">
-                        <span>{key}</span>
-                        <span className={val === '✓' ? 'text-emerald-600' : 'text-slate-400'}>{val}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-};
 
 export default Technology;

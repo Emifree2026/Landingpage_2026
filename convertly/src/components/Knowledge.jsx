@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   BookOpen, Users, Download, ChevronRight, Calendar, Clock,
@@ -8,89 +9,10 @@ import {
 } from 'lucide-react';
 
 // Sample Blog Posts Data (with SEO-friendly slugs and meta)
-const blogPosts = [
-  {
-    id: 1,
-    slug: "future-industrial-air-filtration-trends-2026",
-    title: "The Future of Industrial Air Filtration: Trends for 2026",
-    excerpt: "Discover how Industry 4.0 integration and smart monitoring are revolutionizing air quality management in manufacturing facilities.",
-    category: "Industry Trends",
-    date: "2026-06-05",
-    formattedDate: "June 5, 2026",
-    readTime: "8 min read",
-    featured: true,
-    author: "Dr. Markus Weber",
-    authorTitle: "CTO, Emifree GmbH"
-  },
-  {
-    id: 2,
-    slug: "reduce-cnc-machine-operating-costs-40-percent",
-    title: "How to Reduce CNC Machine Operating Costs by 40%",
-    excerpt: "A comprehensive guide on optimizing your filtration systems for maximum energy efficiency and minimal maintenance downtime.",
-    category: "Technical Guide",
-    date: "2026-05-28",
-    formattedDate: "May 28, 2026",
-    readTime: "12 min read",
-    featured: true,
-    author: "Anna Schmidt",
-    authorTitle: "Product Manager"
-  },
-  {
-    id: 3,
-    slug: "new-eu-workplace-air-quality-regulations-2026",
-    title: "New EU Workplace Air Quality Regulations 2026",
-    excerpt: "Understanding the updated EN 15251 and ISO 17799 standards for indoor air quality in industrial environments.",
-    category: "Regulations",
-    date: "2026-05-15",
-    formattedDate: "May 15, 2026",
-    readTime: "6 min read",
-    featured: false,
-    author: "Klaus Hoffmann",
-    authorTitle: "Compliance Specialist"
-  },
-  {
-    id: 4,
-    slug: "electrostatic-vs-mechanical-filtration-comparison",
-    title: "Electrostatic vs Mechanical Filtration: A Complete Comparison",
-    excerpt: "Which technology is right for your application? We break down the pros and cons of each filtration method.",
-    category: "Technical Guide",
-    date: "2026-05-02",
-    formattedDate: "May 2, 2026",
-    readTime: "10 min read",
-    featured: false,
-    author: "Dr. Markus Weber",
-    authorTitle: "CTO, Emifree GmbH"
-  },
-  {
-    id: 5,
-    slug: "mercedes-benz-energy-savings-case-study",
-    title: "Case Study: 60% Energy Savings at Mercedes-Benz Plant",
-    excerpt: "How a leading automotive manufacturer achieved significant cost savings with our smart filtration solutions.",
-    category: "Case Study",
-    date: "2026-04-18",
-    formattedDate: "April 18, 2026",
-    readTime: "7 min read",
-    featured: true,
-    author: "Thomas Bauer",
-    authorTitle: "Senior Solutions Architect"
-  },
-  {
-    id: 6,
-    slug: "oil-mist-health-risks-factory-workers",
-    title: "Oil Mist Health Risks: What Factory Workers Need to Know",
-    excerpt: "Understanding the health implications of prolonged exposure to oil mist and how proper filtration protects your workforce.",
-    category: "Health & Safety",
-    date: "2026-04-05",
-    formattedDate: "April 5, 2026",
-    readTime: "5 min read",
-    featured: false,
-    author: "Dr. Elena Petrova",
-    authorTitle: "Industrial Hygienist"
-  }
-];
+import { blogPosts } from '../data/blogPosts.jsx';
 
 // Helper function to get icon based on category
-const getCategoryIcon = (category) => {
+export const getCategoryIcon = (category) => {
   switch(category) {
     case 'Industry Trends':
       return TrendingUp;
@@ -267,8 +189,11 @@ const Knowledge = () => {
     };
   }, [activeTab]);
 
-  const featuredPosts = blogPosts.filter(post => post.featured);
-  const regularPosts = blogPosts.filter(post => !post.featured);
+  // The first post is featured (top of the grid). The "Latest Articles"
+  // grid below the Featured section has been removed — visitors see
+  // "View All Articles" as the gateway to the full archive at /blog.
+  const featuredPosts = blogPosts;
+  const regularPosts = [];
 
   return (
     <section id="knowledge" className="py-24 bg-gradient-to-br from-slate-50 via-white to-blue-50" aria-label="Knowledge Center">
@@ -282,8 +207,7 @@ const Knowledge = () => {
           transition={{ duration: 0.8 }}
         >
           <h1 className="text-4xl md:text-5xl font-bold text-zinc-900 mb-6">
-            Resources &amp;
-            <span className="bg-gradient-to-r from-blue-700 to-cyan-500 bg-clip-text text-transparent"> Knowledge</span>
+            Resources &amp; <span className="text-blue-700">Knowledge</span>
           </h1>
           <p className="text-xl text-zinc-600 max-w-3xl mx-auto">
             Explore our latest insights, company updates, and technical resources to stay informed about industrial air filtration.
@@ -351,28 +275,22 @@ const Knowledge = () => {
                 </div>
               )}
 
-              {/* Regular Posts */}
-              <div>
-                <h2 className="text-xl font-bold text-zinc-900 mb-6">Latest Articles</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {regularPosts.map((post) => (
-                    <BlogCard key={post.id} post={post} getIcon={getCategoryIcon} />
-                  ))}
-                </div>
-              </div>
-
               {/* View All Button */}
               <div className="text-center mt-12">
-                <motion.a
-                  href="/blog"
-                  className="bg-white border-2 border-blue-700 text-blue-700 px-8 py-4 rounded-full font-semibold hover:bg-blue-700 hover:text-white transition-all duration-300 inline-flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                <motion.div
+                  className="bg-white border-2 border-blue-700 text-blue-700 px-8 py-4 rounded-full font-semibold hover:bg-blue-700 hover:text-white transition-all duration-300 inline-flex items-center gap-2 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  aria-label="View all blog articles"
                 >
+                  <Link
+                    to="/blog"
+                    className="contents"
+                    aria-label="View all blog articles"
+                  >
                   View All Articles
                   <ArrowRight className="w-5 h-5" aria-hidden="true" />
-                </motion.a>
+                  </Link>
+                </motion.div>
               </div>
             </motion.div>
           )}
@@ -454,30 +372,6 @@ const Knowledge = () => {
                   ))}
                 </div>
               </div>
-
-              <div className="mb-12">
-                <h2 className="text-2xl font-bold text-zinc-900 mb-8 text-center flex items-center justify-center gap-2">
-                  <HelpCircle className="w-6 h-6 text-blue-600" />
-                  Frequently Asked Questions
-                </h2>
-                <div className="max-w-4xl mx-auto space-y-4">
-                  {aboutData.faqs.map((faq, idx) => (
-                    <div key={idx} className="bg-white rounded-xl p-6 shadow-sm border border-slate-100">
-                      <h3 className="text-lg font-semibold text-zinc-900 mb-2 flex items-start gap-2">
-                        <span className="text-blue-600 font-bold">Q:</span> {faq.question}
-                      </h3>
-                      <div className="text-slate-600 pl-6">
-                        <span className="font-medium text-blue-600">A:</span> {faq.answer}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="text-center mt-8">
-                  <a href="/contact" className="text-blue-700 font-medium inline-flex items-center gap-1 hover:gap-2 transition-all">
-                    Have more questions? Contact our team <ChevronRight className="w-4 h-4" />
-                  </a>
-                </div>
-              </div>
             </motion.div>
           )}
 
@@ -538,7 +432,7 @@ const Knowledge = () => {
                   Can't find what you're looking for? Contact our technical team for custom datasheets, CAD drawings, or specific documentation for your application.
                 </p>
                 <motion.a
-                  href="/contact"
+                  href="/#contact"
                   className="bg-white text-blue-700 px-8 py-4 rounded-full font-semibold hover:bg-blue-50 transition-colors inline-flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-700"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -555,12 +449,14 @@ const Knowledge = () => {
   );
 };
 
-// Featured Blog Card Component - Icons only, no images
-const FeaturedBlogCard = ({ post, getIcon }) => {
+// Featured Blog Card Component - Icons only, no images.
+// The whole card is the click target via a stretched Link overlay.
+// Hover/focus state propagates to the title color via the `group` class.
+export const FeaturedBlogCard = ({ post, getIcon }) => {
   const IconComponent = getIcon(post.category);
   return (
     <motion.article
-      className="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all group"
+      className="relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all group"
       whileHover={{ y: -4 }}
       itemScope
       itemType="https://schema.org/BlogPosting"
@@ -591,20 +487,27 @@ const FeaturedBlogCard = ({ post, getIcon }) => {
           {post.title}
         </h3>
         <p className="text-slate-600 mb-4">{post.excerpt}</p>
-        <a href={`/blog/${post.slug}`} className="text-blue-700 font-medium inline-flex items-center gap-1 hover:gap-2 transition-all">
-          Read More <ChevronRight className="w-4 h-4" aria-hidden="true" />
-        </a>
+        <span className="inline-flex items-center gap-1 text-blue-700 font-medium">
+          Read article <ChevronRight className="w-4 h-4" aria-hidden="true" />
+        </span>
       </div>
+      {/* Stretched link — the entire card is clickable. */}
+      <Link
+        to={`/blog/${post.slug}`}
+        className="absolute inset-0 rounded-3xl focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+        aria-label={`Read article: ${post.title}`}
+      />
     </motion.article>
   );
 };
 
-// Regular Blog Card Component - Icons only, no images
-const BlogCard = ({ post, getIcon }) => {
+// Regular Blog Card Component - Icons only, no images.
+// Whole card is clickable (stretched link overlay).
+export const BlogCard = ({ post, getIcon }) => {
   const IconComponent = getIcon(post.category);
   return (
     <motion.article
-      className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all group border border-slate-100"
+      className="relative bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all group border border-slate-100"
       whileHover={{ y: -4 }}
       itemScope
       itemType="https://schema.org/BlogPosting"
@@ -626,6 +529,11 @@ const BlogCard = ({ post, getIcon }) => {
           <span>{post.readTime}</span>
         </div>
       </div>
+      <Link
+        to={`/blog/${post.slug}`}
+        className="absolute inset-0 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+        aria-label={`Read article: ${post.title}`}
+      />
     </motion.article>
   );
 };
