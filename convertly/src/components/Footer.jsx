@@ -41,24 +41,11 @@ import React, { useState } from 'react';
       };
 
       const footerLinks = {
-        Product: [
-          { name: 'Features', href: '#features' },
-          { name: 'API Documentation', href: '#' },
-          { name: 'Integrations', href: '#' },
-          { name: 'Changelog', href: '#' }
-        ],
         Company: [
-          { name: 'About Us', href: '#' },
-          { name: 'Careers', href: '#' },
-          { name: 'Blog', href: '#' },
-          { name: 'Press Kit', href: '#' },
+          { name: 'Blog', href: '/blog' },
           { name: 'Contact', href: '#contact' }
         ],
         Resources: [
-          { name: 'Help Center', href: '#' },
-          { name: 'Community', href: '#' },
-          { name: 'Tutorials', href: '#' },
-          { name: 'Webinars', href: '#' },
           { name: 'Case Studies', href: '#knowledge' }
         ],
         Legal: [
@@ -140,7 +127,7 @@ import React, { useState } from 'react';
 
             {/* Main Footer Content */}
             <div className="py-16">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
                 {/* Brand Section */}
                 <motion.div
                   className="lg:col-span-2"
