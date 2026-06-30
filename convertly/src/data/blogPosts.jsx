@@ -1,5 +1,8 @@
 import React from 'react';
 
+import heroStrategicEdge from '../assets/Blog_images/Factory_floor_with_CNC_.webp';
+import heroPrecision from '../assets/Blog_images/CNC_2.jpg';
+
 // Body JSX uses Tailwind utilities directly so the article reads cleanly
 // without a typography plugin. Every factual claim from the original
 // source markdown is preserved verbatim — these articles are the SEO/GEO
@@ -19,6 +22,7 @@ const blogPosts = [
     readTime: '5 min read',
     author: 'Victoria Pedroza',
     authorRole: 'Product Manager, Emifree GmbH',
+    heroImage: heroStrategicEdge,
     body: (
       <>
         <p className="text-lg text-zinc-700 leading-relaxed mb-6">
@@ -140,6 +144,7 @@ const blogPosts = [
     readTime: '7 min read',
     author: 'Victoria Pedroza',
     authorRole: 'Product Manager, Emifree GmbH',
+    heroImage: heroPrecision,
     body: (
       <>
         <p className="text-lg text-zinc-700 leading-relaxed mb-6">

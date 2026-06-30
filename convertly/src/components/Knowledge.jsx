@@ -464,8 +464,18 @@ export const FeaturedBlogCard = ({ post, getIcon }) => {
       <meta itemProp="datePublished" content={post.date} />
       <meta itemProp="author" content={post.author} />
       <link itemProp="url" href={`/blog/${post.slug}`} />
-      <div className="aspect-video bg-gradient-to-br from-blue-100 to-cyan-100 relative flex items-center justify-center">
-        <IconComponent className="w-20 h-20 text-blue-500/40 group-hover:scale-110 transition-transform duration-300" aria-hidden="true" />
+      <div className="aspect-video bg-gradient-to-br from-blue-100 to-cyan-100 relative overflow-hidden">
+        {post.heroImage ? (
+          <img
+            src={post.heroImage}
+            alt={post.title}
+            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <IconComponent className="w-20 h-20 text-blue-500/40 group-hover:scale-110 transition-transform duration-300" aria-hidden="true" />
+          </div>
+        )}
         <div className="absolute top-4 left-4">
           <span className="bg-amber-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
             {post.category}
@@ -513,8 +523,18 @@ export const BlogCard = ({ post, getIcon }) => {
       itemType="https://schema.org/BlogPosting"
     >
       <meta itemProp="datePublished" content={post.date} />
-      <div className="h-40 bg-gradient-to-br from-slate-100 to-blue-50 flex items-center justify-center">
-        <IconComponent className="w-16 h-16 text-blue-500/40 group-hover:scale-110 transition-transform duration-300" aria-hidden="true" />
+      <div className="h-40 bg-gradient-to-br from-slate-100 to-blue-50 relative overflow-hidden">
+        {post.heroImage ? (
+          <img
+            src={post.heroImage}
+            alt={post.title}
+            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <IconComponent className="w-16 h-16 text-blue-500/40 group-hover:scale-110 transition-transform duration-300" aria-hidden="true" />
+          </div>
+        )}
       </div>
       <div className="p-5">
         <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2 py-1 rounded-full">
