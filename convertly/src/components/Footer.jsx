@@ -63,11 +63,7 @@ import React, { useState } from 'react';
         ],
         Legal: [
           { name: 'Impressum', href: '/impressum' },
-          { name: 'Privacy Policy', href: '/privacy' },
-          { name: 'Terms of Service', href: '#' },
-          { name: 'Cookie Policy', href: '#' },
-          { name: 'GDPR', href: '#' },
-          { name: 'Security', href: '#' }
+          { name: 'Privacy Policy', href: '/privacy' }
         ]
       };
 
