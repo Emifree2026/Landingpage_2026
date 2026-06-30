@@ -11,6 +11,7 @@ import Blog from './src/pages/Blog.jsx';
 import BlogPost from './src/pages/BlogPost.jsx';
 import Impressum from './src/pages/Impressum.jsx';
 import Privacy from './src/pages/Privacy.jsx';
+import Terms from './src/pages/Terms.jsx';
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/impressum" element={<Impressum />} />
             <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
             <Route path="/404" element={<NotFound />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

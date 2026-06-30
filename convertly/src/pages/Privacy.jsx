@@ -251,19 +251,6 @@ export default function Privacy() {
           </li>
         </ul>
 
-        <div className="bg-amber-50 border border-amber-300 p-4 mb-8 rounded-lg">
-          <p className="text-sm text-amber-900">
-            <span className="font-semibold uppercase tracking-wide text-xs text-amber-700 block mb-1">
-              Action required
-            </span>
-            <strong>Note for the team:</strong> The automated Cookiebot cookie
-            declaration table needs to be embedded here once Cookiebot is integrated
-            (the source markdown notes: <em>"Please embed the automatic Cookiebot
-            script into your CMS here to dynamically output the automated cookie
-            categorization table."</em>). Until that ships, the prose above is the
-            user-visible policy.
-          </p>
-        </div>
 
         <h3 className="text-xl font-semibold text-zinc-900 mt-8 mb-3">
           Tawk.to (Live Chat)
