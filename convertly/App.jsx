@@ -9,6 +9,8 @@ import Home from './src/pages/Home.jsx';
 import NotFound from './src/pages/NotFound.jsx';
 import Blog from './src/pages/Blog.jsx';
 import BlogPost from './src/pages/BlogPost.jsx';
+import Impressum from './src/pages/Impressum.jsx';
+import Privacy from './src/pages/Privacy.jsx';
 
 export default function App() {
   return (
@@ -19,6 +21,8 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/impressum" element={<Impressum />} />
+            <Route path="/privacy" element={<Privacy />} />
             <Route path="/404" element={<NotFound />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

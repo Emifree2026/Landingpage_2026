@@ -62,7 +62,8 @@ import React, { useState } from 'react';
           { name: 'Case Studies', href: '#knowledge' }
         ],
         Legal: [
-          { name: 'Privacy Policy', href: '#' },
+          { name: 'Impressum', href: '/impressum' },
+          { name: 'Privacy Policy', href: '/privacy' },
           { name: 'Terms of Service', href: '#' },
           { name: 'Cookie Policy', href: '#' },
           { name: 'GDPR', href: '#' },
@@ -88,8 +89,7 @@ import React, { useState } from 'react';
             >
               <div className="max-w-4xl mx-auto text-center">
                 <h3 className="text-3xl md:text-4xl font-bold mb-4">
-                  Stay Updated with
-                  <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent"> Emifree</span>
+                  Stay Updated with <span className="text-blue-400">Emifree</span>
                 </h3>
                 <p className="text-xl text-zinc-400 mb-8">
                   Get the latest updates, tips, and insights delivered to your inbox.
